@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>MEC</title>
+<link rel="stylesheet" href="styles.css" type="text/css" />
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!--
+anatine, a free CSS web template by ZyPOP (zypopwebtemplates.com/)
+Download: http://zypopwebtemplates.com/
+License: Creative Commons Attribution
+//-->
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+</head>
+
+<body>
+    <section id="body" class="width">
+	<aside id="sidebar" class="column-left">
+        <header>
+            <h1><a href="#">MEC</a></h1>
+            <h2>Correcting ngs reads</h2>
+        </header>
+        <nav id="mainnav">
+  		    <ul>
+                <li class="selected-item"><a href="index.html">Home</a></li>
+                <li><a href="install.html">Installation</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+	    </nav>
+	</aside>
+    <section id="content" class="column-right">
+	    <article>
+			<h2>Overview</h2>
+			<div class="article-info">Posted on <time datetime="2016-05-15">15 May</time> by <a href="contact.html" rel="author">Dr. Liang Zhao</a></div>
+            <p> MEC is an error corrector for next-generation sequencing data, particularly aiming at correcting Illumina reads' errors. MEC has four modules: preprocess, index, candidate, correct. Following is the brief introduction and the general usage. Regarding the details of MEC, please refer to our paper "<strong>MapReduce for accurate error correction of next-generation sequencing data</strong>".</p> 
+        </article>
+        <article class="expanded">
+            <h3>MEC: preprocess</h3>
+            <p> Handle low quality reads, "./N" containing reads, dangling reads in paired-end reads, low complexity reads, etc.</p>
+            <ol>
+                <li><h5>Usage:</h5></li>
+                <code>mec preprocess [OPTIONS] reads1 reads2 ...</code>
+                <li><h5>Examples:</h5></li>
+                
+                <code>
+                    <ul class="styledlist">
+                        <li> mec preprocess -p 0 -o output.fastq reads1.fastq reads2.fastq</li> :reads1.fastq and reads2.fastq are not considered as paired-end reads, and the results are written to output.fastq.
+                        <li> mec preprocess -p 1 --dust -o output reads1.fastq reads2.fastq</li> :reads1.fastq and reads2.fastq are considered as paired-end reads, and reads are filtered by their dust scores. Reads are interleaved written to output.fastq.
+                    </ul>
+                </code>
+            </ol>
+            <h3>MEC: index</h3>
+            <p> Build FM-index for the input reads. </p>
+            <ol>
+                <li><h5>Usage:</h5></li>
+                <code>mec index [OPTIONS] PREPROCESSED.fastq</code>
+                <li><h5>Examples:</h5></li>
+                <code>
+                    <ul class="styledlist">
+                        <li> mec index -t 6 -p PREFIX PREPROCESSED.fastq</li> :Use 6 threads to construct the FM-index of PREPROCESSED.fastq (generated from the preprocess module), and store the FM-index files with prefix PREFIX.
+                    </ul>
+                </code>
+            </ol>
+            <h3>MEC: candidate</h3>
+            <p> Collect all the candidate bases that may contains errors. </p>
+            <ol>
+                <li><h5>Usage:</h5></li>
+                <code>mec candidate [OPTIONS] PREPROCESSED.fastq</code>
+                <li><h5>Examples:</h5></li>
+                <code>
+                    <ul class="styledlist">
+                        <li> mec candidate -p PREFIX -o OUTPUT -t 6 -k 31 PREPROCESSED.fastq </li> :Obtained the prospective bases that may contain errors with k-mer size of 31 and 6 threads. The PREFIX is the prefix for the FM-index files and the OUTPUT is the output file.
+                    </ul>
+                </code>
+            </ol>
+            <h3>MEC: correct</h3>
+            <p> Correct errors. </p>
+            <ol>
+                <li><h5>Usage:</h5></li>
+                <code>mec correct [OPTIONS] PREPROCESSED.fastq</code>
+                <li><h5>Examples:</h5></li>
+                <code>
+                    <ul class="styledlist">
+                        <li> mec correct -t 6 -c CANDIDATE -o CORRECTEDREADS PREPROCESSED.fastq</li> :Use the prospective erroneous bases to correct the errors in PREPROCESSED.fastq and store the result to CORRECTEDREADS. The process is carried our by 6 threads.
+                    </ul>
+                </code>
+            </ol>
+		</article>
+	    <footer class="clear">
+		<p>&copy; 2015 sitename. <a href="http://zypopwebtemplates.com/">Free CSS Templates</a> by ZyPOP</p>
+		</footer>
+		</section>
+		<div class="clear"></div>
+	</section>
+</body>
+</html>

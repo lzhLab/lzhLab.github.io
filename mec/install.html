@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>MEC</title>
+<link rel="stylesheet" href="styles.css" type="text/css" />
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!--
+anatine, a free CSS web template by ZyPOP (zypopwebtemplates.com/)
+Download: http://zypopwebtemplates.com/
+License: Creative Commons Attribution
+//-->
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+</head>
+
+<body>
+    <section id="body" class="width">
+	<aside id="sidebar" class="column-left">
+        <header>
+            <h1><a href="index.html">MEC</a></h1>
+            <h2>Correcting ngs reads</h2>
+        </header>
+        <nav id="mainnav">
+  		    <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="selected-item"><a href="install.html">Installation</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+	    </nav>
+	</aside>
+    <section id="content" class="column-right">
+	    <article class="expanded">
+			<h3>Prerequisite</h3>
+            <p> MEC is developed based on FM-index. The BWT is constructed by RopeBWT2 [1], and the FM-index is developed based on the alternative implemented in SGA [2]. The OpenMP [3] is used for parallelization and GCC 4.9 [4] or higher version is required to compile MEC. The google sparsehash is also required.</p>
+            <h3>Installation</h3>
+            <ol>
+                <li> Install GCC 4.9 or higher version. </li>
+                <li> Install OpenMP 1.10. </li>
+                <li> Download <a href="mec-1.0.9.tar.gz">MEC</a> source code, and decompress it.</li>
+                <li> Install MEC by type: </li>
+                <code> ./autogen.sh && ./configure && make</code>
+            </ol>
+        <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+        </article>
+        <article>
+            <h4>Reference</h4>
+            <ol>
+                <li>RopeBWT2: Li H., Fast construction of FM-index for long sequence reads, Bioinformatics: 2014, 10.1093/bioinformatics/btu541.</li>
+                <li>SGA: Simpson J.T. and Durbin R., Efficient de novo assembly of large genomes using compressed data structures, Genome Res.: 22(3):549-56. doi: 10.1101/gr.126953.111.</li>
+                <li>OpenMP: http://openmp.org/wp/ </li>
+                <li>GCC: https://gcc.gnu.org/ </li>
+            </ol>
+        </article>
+
+	    <footer class="clear">
+		<p>&copy; 2015 sitename. <a href="http://zypopwebtemplates.com/">Free CSS Templates</a> by ZyPOP</p>
+		</footer>
+		</section>
+		<div class="clear"></div>
+	</section>
+</body>
+</html>
